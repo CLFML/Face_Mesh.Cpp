@@ -1,0 +1,8 @@
+{
+    "name": "face_mesh",
+    "cmake-args":[
+        "-DCLFML_ROS2_PACKAGE_BUILD=ON",
+        "-G Ninja"
+    ],
+    "hooks": ["lib/face_mesh/set_ld_path.sh"]
+}

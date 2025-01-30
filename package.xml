@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>face_mesh</name>
+  <version>3.11.5</version>
+  <description>
+  Face mesh generator using the Face Mesh Mediapipe model with a CPU delegate written in C++
+  - Plain C/C++ implementation with minimal dependencies (Tensorflow Lite + OpenCV)
+  - Google MediaPipe models without the MediaPipe framework
+  - Runs on ARM
+  </description>
+  <maintainer email="jveen1@gmail.com">jeroen</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>rclcpp</depend>
+  <depend>sensor_msgs</depend>
+  <depend>cv_bridge</depend>
+  <depend>std_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>std_srvs</depend>
+  <depend>v4l2_camera</depend>
+  
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+
+
+</package>
+
