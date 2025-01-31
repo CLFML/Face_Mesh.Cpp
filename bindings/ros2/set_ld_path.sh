@@ -7,7 +7,7 @@ if [ ! -d "install" ]; then
 fi
 
 # Path to the dynamic library
-LIB_PATH="install/face_mesh/lib/face_mesh/libtensorflowlite.so"
+LIB_PATH="$(pwd)/install/face_mesh/lib/face_mesh/libtensorflowlite.so"
 
 # Check if the dynamic library exists
 if [ -f "$LIB_PATH" ]; then
