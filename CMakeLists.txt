@@ -8,7 +8,7 @@ set(CLFML_FACE_MESH_MAIN_PROJECT OFF)
 option(CLFML_FACE_MESH_BUILD_EXAMPLE_PROJECTS "Build example projects" ON)
 
 # Optionally enable ROS2 package build (Requires ROS2 jazzy to be installed!)
-option(CLFML_ROS2_PACKAGE_BUILD "Build a ROS2 package" OFF)
+option(CLFML_ROS2_PACKAGE_BUILD "Build a ROS2 package" ON)
 
 if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
   set(CMAKE_CXX_STANDARD 17)
@@ -111,18 +111,6 @@ target_compile_definitions(${PROJECT_NAME} PUBLIC -DCLFML_FACE_MESH_CPU_MODEL_PA
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)
 
-if(CLFML_FACE_MESH_BUILD_EXAMPLE_PROJECTS)
-  FetchContent_Declare(
-        face_detector.cpp
-        GIT_REPOSITORY https://github.com/CLFML/Face_Detector.Cpp.git
-        GIT_TAG main
-    )
-  FetchContent_MakeAvailable(face_detector.cpp)
-  add_executable(face_mesh_demo ${CMAKE_CURRENT_LIST_DIR}/example/face_mesh_demo/demo.cpp)
-  target_link_libraries(face_mesh_demo PUBLIC CLFML::${PROJECT_NAME} CLFML::face_detector)
-  
-endif()
-
 if (CLFML_ROS2_PACKAGE_BUILD)
   find_package(ament_cmake REQUIRED)
   find_package(rclcpp REQUIRED)
@@ -147,6 +135,35 @@ if (CLFML_ROS2_PACKAGE_BUILD)
     face_mesh_node
     DESTINATION lib/${PROJECT_NAME})
 endif()
+
+
+if(CLFML_FACE_MESH_BUILD_EXAMPLE_PROJECTS)
+FetchContent_Declare(
+  face_detector.cpp
+  GIT_REPOSITORY https://github.com/CLFML/Face_Detector.Cpp.git
+  GIT_TAG main
+)
+FetchContent_MakeAvailable(face_detector.cpp)
+if (CLFML_ROS2_PACKAGE_BUILD)
+    add_executable(face_mesh_viewer ${CMAKE_CURRENT_LIST_DIR}/example/ros2/face_mesh_viewer.cpp)
+    ament_target_dependencies(face_mesh_viewer
+        rclcpp
+        sensor_msgs
+        cv_bridge
+        std_msgs
+        geometry_msgs
+        std_srvs
+        OpenCV
+      )
+    install(TARGETS
+      face_mesh_viewer
+      DESTINATION lib/${PROJECT_NAME})
+  else ()
+  add_executable(face_mesh_demo ${CMAKE_CURRENT_LIST_DIR}/example/face_mesh_demo/demo.cpp)
+  target_link_libraries(face_mesh_demo PUBLIC CLFML::${PROJECT_NAME} CLFML::face_detector)
+  endif()
+endif()
+
 
 if (CLFML_ROS2_PACKAGE_BUILD)
   install(FILES bindings/ros2/set_ld_path.sh DESTINATION lib/${PROJECT_NAME})

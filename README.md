@@ -77,6 +77,58 @@ add_subdirectory(Face_Mesh.Cpp)
 ...
 target_link_libraries(YOUR_EXECUTABLE CLFML::face_mesh)
 ```
+
+## Building a ROS2 package with Colcon
+Before using this library you will need the following packages installed:
+- OpenCV
+- ROS2
+- ROS CV bridge
+- Working C++ compiler (GCC or Clang)
+- CMake
+
+### Running the examples (Ubuntu, CPU)
+
+1. Clone this repo:
+```
+git clone https://github.com/CLFML/Face_Mesh.Cpp.git
+```
+
+2. Source your ROS2 installation:
+
+```bash
+source /opt/ros/jazzy/setup.bash
+```
+
+3. Install the dependencies:
+```bash
+rosdep install --from-paths src -y --ignore-src
+``` 
+
+4. Build the package:
+
+```bash
+colcon build --packages-select face_mesh
+```
+
+5. Set up the environment:
+
+```bash
+source install/setup.bash
+```
+
+6. Run the camera node:
+
+```bash
+ros2 run v4l2_camera v4l2_camera_node
+```
+
+7. In another terminal, run the nodes
+
+```bash
+ros2 launch example/ros2/launch.py
+```
+
+
 ## Aditional documentation
 See our [wiki](https://clfml.github.io/Face_Mesh.Cpp/)...
 
@@ -84,7 +136,6 @@ See our [wiki](https://clfml.github.io/Face_Mesh.Cpp/)...
 - Add language bindings for Python, C# and Java
 - Add support for MakeFiles and Bazel
 - Add Unit-tests 
-- Add ROS2 package support
 - Add support for the [Face Mesh V2 model](https://storage.googleapis.com/mediapipe-assets/Model%20Card%20MediaPipe%20Face%20Mesh%20V2.pdf)
 
 ## License
