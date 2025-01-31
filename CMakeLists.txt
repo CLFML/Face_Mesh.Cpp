@@ -8,7 +8,7 @@ set(CLFML_FACE_MESH_MAIN_PROJECT OFF)
 option(CLFML_FACE_MESH_BUILD_EXAMPLE_PROJECTS "Build example projects" ON)
 
 # Optionally enable ROS2 package build (Requires ROS2 jazzy to be installed!)
-option(CLFML_ROS2_PACKAGE_BUILD "Build a ROS2 package" ON)
+option(CLFML_ROS2_PACKAGE_BUILD "Build a ROS2 package" OFF)
 
 if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
   set(CMAKE_CXX_STANDARD 17)
